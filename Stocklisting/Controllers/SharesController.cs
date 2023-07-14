@@ -99,7 +99,7 @@ namespace Stocklisting.Controllers
                 //Call the new instance of the HttpClient
                 var client = new HttpClient();
                 //add a api call as a respose variable
-                var response = await client.GetAsync("https://api.twelvedata.com/stocks?country=${country}?");
+                var response = await client.GetAsync("https://api.twelvedata.com/stocks?country=" + country);
                 //add a responseString variable to get the response content  using ReadAsStringAsync
                 var responseString = await response.Content.ReadAsStringAsync();
                 //add a variable shares to store the response string using Deserialize
@@ -128,7 +128,7 @@ namespace Stocklisting.Controllers
                 //Add  new instance of the HttpClient
                 var client = new HttpClient();
                 //add a api call as a respose variable
-                var response = await client.GetAsync("https://api.twelvedata.com/time_series?symbol=${id}&interval=1min&apikey=0975893c35e04bc59419ad713796a678");
+                var response = await client.GetAsync("https://api.twelvedata.com/time_series?symbol= + symbol + &interval=1min&apikey=7510425dfb0b4bbf9440290467ce2a7f");
                 //add a responseString variable to get the response content  using ReadAsStringAsync
                 var responseString = await response.Content.ReadAsStringAsync();
 

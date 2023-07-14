@@ -1,6 +1,9 @@
 ﻿namespace Stocklisting.Exception
 {
-    public class SharesAlreadyExistsException
+    public class SharesAlreadyExistsException: IOException
     {
+        public SharesAlreadyExistsException(string message): base(message)
+        {
+        }
     }
 }
