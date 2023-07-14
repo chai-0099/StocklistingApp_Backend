@@ -1,0 +1,56 @@
+name: dockercompose16630876292237074047
+services:
+  stocklisting:
+    build:
+      context: C:\Users\zakar\Desktop\Stocklisting
+      dockerfile: Stocklisting/Dockerfile
+    container_name: stocklistingapp
+    depends_on:
+      stocklistingdb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: stocklisting
+    networks:
+      stocklistingnetwork: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8081"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\zakar\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\zakar\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  stocklistingdb:
+    container_name: stocklistingdb
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: Password123
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      stocklistingnetwork: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8002"
+      protocol: tcp
+networks:
+  stocklistingnetwork:
+    name: dockercompose16630876292237074047_stocklistingnetwork
